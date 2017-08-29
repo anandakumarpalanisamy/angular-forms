@@ -1,0 +1,92 @@
+<div class="app-wrapper">
+    <md-card>
+        <md-card-title>Hero Form</md-card-title>
+        <md-card-content>
+            <form (ngSubmit)="onSubmit()" #heroForm="ngForm" [hidden]="submitted">
+                <md-input-container>
+                    <input mdInput type="text"
+                        placeholder="Name"
+                        id="name"
+                        name="name"
+                        required
+                        [(ngModel)]="hero.name"
+                        #name="ngModel">
+                </md-input-container>
+                <div [hidden]="name.valid || name.pristine">
+                    Name is required
+                </div>
+                <md-input-container>
+                    <input mdInput type="text"
+                        placeholder="Alter ego"
+                        id="alterEgo"
+                        name="alterEgo"
+                        [(ngModel)]="hero.alterEgo">
+                </md-input-container>
+                <div class="select-container">
+                    <md-select placeholder="Select Power"
+                        required
+                        [(ngModel)]="hero.power"
+                        name="power"
+                        #power="ngModel">
+                        <md-option *ngFor="let power of powers" [value]="power">
+                            {{ power }}
+                        </md-option>
+                    </md-select>
+                </div>
+                <div [hidden]="power.valid || power.pristine">
+                    Power is required
+                </div>
+                <div class="select-container">
+                    <button md-raised-button 
+                        color="primary"
+                        type="submit"
+                        [disabled]="!heroForm.form.valid">Submit</button>
+                    
+                    <button md-raised-button
+                        color="secondary"
+                        type="button"
+                        (click)="newHero(); heroForm.reset()">New Hero</button>
+                        <i>with reset</i>
+
+                    <button md-raised-button
+                        color="secondary"
+                        type="button"
+                        (click)="newHero()">New Hero</button>
+                        <i>without reset</i>
+                </div>
+            </form>
+        </md-card-content>
+    </md-card>
+
+    <md-card>
+        <md-card-title>Form Debug</md-card-title>
+        <md-card-content>
+            <p>Name via form.controls = {{ showFormControls(heroForm) }}</p>
+            <p>Form: {{ heroForm.value | json }}</p>
+            <p>Form status: {{ heroForm.control.status }}</p>
+            <p>{{diagnostic}}</p>
+        </md-card-content>
+    </md-card>
+</div>
+
+<div [hidden]="!submitted">
+    <md-card>
+        <md-card-title>You have submitted the following</md-card-title>
+        <md-card-content>
+            <div class="select-container">
+                <div>Name</div>
+                <div>{{ hero.name }}</div>
+            </div>
+            <div class="select-container">
+                <div>Alter Ego</div>
+                <div>{{ hero.alterEgo }}</div>
+            </div>
+            <div class="select-container">
+                <div>Power</div>
+                <div>{{ hero.power }}</div>
+            </div>
+            <br>
+            <button md-raised-button color="primary" (click)="submitted=false">Edit</button>
+        </md-card-content>
+    </md-card>
+</div>

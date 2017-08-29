@@ -1,0 +1,60 @@
+<div class="app-wrapper">
+    <md-card>
+        <md-card-title>Hero Reactive Form</md-card-title>
+        <md-card-content>
+            <form [formGroup]="heroForm" #formDir="ngForm" [hidden]="formDir.submitted">
+                <md-input-container>
+                    <input mdInput
+                        placeholder="Name"
+                        required
+                        formControlName="name">
+                </md-input-container>
+                <md-input-container>
+                    <input mdInput
+                        placeholder="Alter ego"
+                        formControlName="alterEgo">
+                </md-input-container>
+                <div class="select-container">
+                    <md-select placeholder="Select Power"
+                        required
+                        formControlName="power">
+                        <md-option *ngFor="let power of powers" [value]="power">
+                            {{ power }}
+                        </md-option>
+                    </md-select>
+                </div>
+                <div class="select-container">
+                    <button md-raised-button 
+                        color="primary"
+                        type="submit"
+                        [disabled]="!heroForm.valid">Submit</button>
+                    
+                    <button md-raised-button
+                        color="secondary"
+                        type="button"
+                        (click)="formDir.resetForm({})">Reset</button>
+                </div>
+            </form>
+        </md-card-content>
+    </md-card>
+
+    <md-card>
+        <md-card-title>Reactive Form Debug</md-card-title>
+        <md-card-content>
+            <p>Form: {{ heroForm.value | json }}</p>
+            <p>Form status: {{ heroForm.status }}</p>
+        </md-card-content>
+    </md-card>
+</div>
+
+<div *ngIf="formDir.submitted">
+    <md-card>
+        <md-card-title>You have submitted the following</md-card-title>
+        <md-card-content>
+            <div class="select-container">
+                <p>You've submitted your hero, {{ heroForm.value.name }}!</p>
+                <button md-raised-button color="primary" (click)="formDir.resetForm({})">Add new hero</button>
+            </div>
+        </md-card-content>
+    </md-card>
+</div>
