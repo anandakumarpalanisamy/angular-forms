@@ -1,0 +1,53 @@
+<div class="app-wrapper">
+    <md-card>
+        <md-card-title>User Sign Up Form</md-card-title>
+        <md-card-content>
+            <form novalidate [formGroup]="user" (ngSubmit)="onSubmit(user)">
+                <md-input-container>
+                    <input mdInput
+                        placeholder="Name"
+                        required
+                        formControlName="name">
+                </md-input-container>   
+                <div *ngIf="user.get('name').touched && user.get('name').hasError('required')">
+                    Name is required
+                </div>
+                <div formGroupName="account">   
+                    <md-input-container>
+                        <input mdInput
+                            placeholder="Your Email address"
+                            required
+                            formControlName="email">
+                    </md-input-container>
+                    <md-input-container>
+                        <input mdInput
+                            placeholder="Confirm your email address"
+                            required
+                            formControlName="confirm">
+                    </md-input-container>
+                    <div class="error" *ngIf="user.get('account').touched && user.get('account').hasError('nomatch')">
+                        Email addresses must match
+                    </div>
+                </div>
+            </form>
+            <div class="select-container">
+                <button md-raised-button 
+                    color="primary"
+                    type="submit"
+                    [disabled]="!user.valid">Submit</button>
+            </div>
+        </md-card-content>
+    </md-card>
+    <md-card>
+        <md-card-title>Form Debug</md-card-title>
+        <md-card-content>
+            <p color="primary">Form: {{ user.value | json }}</p>
+            <p color="primary">Form status: {{ user.status }}</p>
+            <p color="primary">Name-> Dirty Check: {{ user.get('name').dirty }}</p>
+            <p color="primary">Name-> Touched Check: {{ user.get('name').touched }}</p>
+            <p color="primary">Name-> Untouched Check: {{ user.get('name').untouched }}</p>
+            <p color="primary">Name-> Pristine Check: {{ user.get('name').pristine }}</p>
+            <p color="primary">Name-> Invalid Check: {{ user.get('name').invalid }}</p>
+        </md-card-content>
+    </md-card>
+</div>

@@ -21,6 +21,9 @@ import {
     LoopbackComponent } from './keyup.component';
 import { HeroFormTemplateComponent } from './template-hero-form.component';
 import { HeroFormReactiveComponent } from './reactive-hero-form.component';
+import { ForbiddenValidatorDirective } from './shared/forbidden-name-directive';
+import { SignUpFormComponent } from './signupform/signup-form.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { HeroFormReactiveComponent } from './reactive-hero-form.component';
     KeyupComponentV4,
     LoopbackComponent,
     HeroFormTemplateComponent,
-    HeroFormReactiveComponent
+    HeroFormReactiveComponent,
+    ForbiddenValidatorDirective,
+    SignUpFormComponent
   ],
   imports: [
     BrowserModule,
